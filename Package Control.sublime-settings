@@ -1,0 +1,16 @@
+{
+	"auto_upgrade_last_run": 1346053131,
+	"installed_packages":
+	[
+		"Alignment",
+		"CoffeeScript",
+		"Package Control",
+		"Rails Latest Migration",
+		"Rails Partial",
+		"Rails Related Files",
+		"RailsCasts Colour Scheme",
+		"Rake",
+		"Simple Rails Navigator",
+		"SublimeCodeIntel"
+	]
+}
