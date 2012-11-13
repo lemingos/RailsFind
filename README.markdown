@@ -1,7 +1,7 @@
 Description
 ------------------
 
-RailsFind add's "gf" vim funcionality. It follows words under cursor and opens connected file. 
+RailsFind add's "gf" vim funcionality to Sublime Text 2. It follows words under cursor and opens connected file. 
 
 Use:
   cmd + shift + k 
@@ -16,4 +16,4 @@ Convenient way to install this plugin is to use "Package Control" via http://wbo
 License
 -------
 
-Copyright © 2012 Tomasz Lemkowski, released under the MIT license.
+Copyright © 2012 Appko, released under the MIT license.

@@ -198,9 +198,8 @@ class RailsFindCommand(sublime_plugin.TextCommand):
       if current_line.find('has_many') != -1 or current_line.find('has_and_belongs_to_many') != -1:
         model = Inflector(English).singularize(current_word)
         path = (self.rails_root_directory + "/app/models/" + model + ".rb")
-      elif self.view.substr(self.view.line(region)).find('belongs_to') != -1:
-        model = self.view.substr(self.view.word(region))
-        path = (self.rails_root_directory + "/app/models/" + model + ".rb")
+      elif current_line.find('belongs_to') != -1:
+        path = (self.rails_root_directory + "/app/models/" + current_word + ".rb")
       
       self.view.window().open_file(path)
     
