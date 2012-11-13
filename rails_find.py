@@ -188,15 +188,22 @@ class RailsFindCommand(sublime_plugin.TextCommand):
   APP_FOLDERS = ['app/controllers', 'app/models', 'app/views', 'test', 'spec'] #assets, helpers
 
   def run(self, edit):
-    #self.open_file(index)
 
     self.build_files()
 
-    #self.view.insert(edit, 1, rails_root(self.rails_root_directory))
-    self.view.insert(edit, 1, self.view.window())
-
-    #sublime.active_window().open_file('/Users/leming/code/RailsFind/README')
-
+    for region in self.view.sel():  
+      current_line = self.view.substr(self.view.line(region))
+      current_word = self.view.substr(self.view.word(region))
+      
+      if current_line.find('has_many') != -1 or current_line.find('has_and_belongs_to_many') != -1:
+        model = Inflector(English).singularize(current_word)
+        path = (self.rails_root_directory + "/app/models/" + model + ".rb")
+      elif self.view.substr(self.view.line(region)).find('belongs_to') != -1:
+        model = self.view.substr(self.view.word(region))
+        path = (self.rails_root_directory + "/app/models/" + model + ".rb")
+      
+      self.view.window().open_file(path)
+    
   def build_files(self):
 
     self.files = []
