@@ -16,4 +16,4 @@ Convenient way to install this plugin is to use "Package Control" via http://wbo
 License
 -------
 
-Copyright © 2009 Tomasz Lemkowski, released under the MIT license.
+Copyright © 2012 Tomasz Lemkowski, released under the MIT license.
