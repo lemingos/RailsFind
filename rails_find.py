@@ -194,14 +194,22 @@ class RailsFindCommand(sublime_plugin.TextCommand):
     for region in self.view.sel():  
       current_line = self.view.substr(self.view.line(region))
       current_word = self.view.substr(self.view.word(region))
-      
+      path = ''
       if current_line.find('has_many') != -1 or current_line.find('has_and_belongs_to_many') != -1:
-        model = Inflector(English).singularize(current_word)
-        path = (self.rails_root_directory + "/app/models/" + model + ".rb")
+        path = (self.rails_root_directory + "/app/models/" + Inflector(English).singularize(current_word) + ".rb")
       elif current_line.find('belongs_to') != -1:
         path = (self.rails_root_directory + "/app/models/" + current_word + ".rb")
+      elif current_line.find('render') != -1:
+        regexp = 'render\s(:{0,1}(partial|template|file):{0,1}\s*(\=\>){0,1}\s*|)[\'|\"]([_\/a-z]*)[\'|\"]'
+        path = self.rails_root_directory + '/app/views/' + re.search(regexp, current_line).group(4) + '.html.haml'
+        path = re.sub(r'(.*\/)([_a-z]*\..*)', r'\1_\2', path)
+
+        if not os.path.isfile(path):
+          path = self.get_working_dir() + '/' + re.search(regexp, current_line).group(4) + '.html.haml'
+          path = re.sub(r'(.*\/)([_a-z]*\..*)', r'\1_\2', path)
       
-      self.view.window().open_file(path)
+      if path != '' and os.path.isfile(path): 
+        self.view.window().open_file(path)
     
   def build_files(self):
 
