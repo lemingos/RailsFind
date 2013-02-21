@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.1.0",
+  "packages": [
+    {
+      "name": "Rails Find",
+      "description": "Rails Find helps finding files related to the context of the cursor position",
+      "author": "lemingos",
+      "homepage": "https://github.com/lemingos/RailsFind",
+      "last_modified": "2013-02-21 14:30",
+      "platforms": {
+        "*"
+      }
+    }
+  ]
+}
