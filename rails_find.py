@@ -201,13 +201,22 @@ class RailsFindCommand(sublime_plugin.TextCommand):
         path = (self.rails_root_directory + "/app/models/" + current_word + ".rb")
       elif current_line.find('render') != -1:
         regexp = 'render\s(:{0,1}(partial|template|file):{0,1}\s*(\=\>){0,1}\s*|)[\'|\"]([_\/a-z]*)[\'|\"]'
+        
         path = self.rails_root_directory + '/app/views/' + re.search(regexp, current_line).group(4) + '.html.haml'
         path = re.sub(r'(.*\/)([_a-z]*\..*)', r'\1_\2', path)
+        
+        if not os.path.isfile(path):
+          path = self.rails_root_directory + '/app/views/' + re.search(regexp, current_line).group(4) + '.html.erb'
+          path = re.sub(r'(.*\/)([_a-z]*\..*)', r'\1_\2', path)
 
         if not os.path.isfile(path):
           path = self.get_working_dir() + '/' + re.search(regexp, current_line).group(4) + '.html.haml'
           path = re.sub(r'(.*\/)([_a-z]*\..*)', r'\1_\2', path)
-      
+        
+        if not os.path.isfile(path):
+          path = self.get_working_dir() + '/' + re.search(regexp, current_line).group(4) + '.html.erb'
+          path = re.sub(r'(.*\/)([_a-z]*\..*)', r'\1_\2', path)
+
       if path != '' and os.path.isfile(path): 
         self.view.window().open_file(path)
     
